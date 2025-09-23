@@ -1,0 +1,259 @@
+:root{
+  --bg:#f5f6f7;
+  --card:#fff;
+  --muted:#666;
+  --accent:#0d6efd;
+  --green:#28a745;
+  --radius:10px;
+  --shadow: 0 6px 18px rgba(0,0,0,0.08);
+  font-family: 'Montserrat', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Reset/Básicos */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:#222;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Topbar */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  background:#212121;
+  color:#fff;
+  padding:10px 16px;
+  position:sticky;
+  top:0;
+  z-index:1200;
+}
+.topbar .brand{font-weight:700; font-size:18px}
+.hamburger, .btn-search, .btn-edit{
+  background:transparent;
+  border:none;
+  color:#fff;
+  padding:6px 10px;
+  cursor:pointer;
+  border-radius:6px;
+}
+.hamburger:hover, .btn-search:hover, .btn-edit:hover{background:rgba(255,255,255,0.04)}
+.btn-edit{background:#0d6efd;color:#fff}
+
+/* Side menu (mobile) */
+.side-menu{
+  display:none;
+  position:fixed;
+  top:56px;
+  left:0;
+  width:260px;
+  bottom:0;
+  background:#1b1b1b;
+  color:#fff;
+  padding:12px;
+  z-index:1100;
+  overflow:auto;
+}
+.side-menu.show{display:block}
+.side-menu .cat{padding:10px;border-radius:6px;cursor:pointer}
+.side-menu .cat:hover{background:rgba(255,255,255,0.03)}
+
+/* Admin controls floating */
+.admin-controls{
+  position:fixed;
+  right:18px;
+  top:66px;
+  background:transparent;
+  display:flex;
+  gap:8px;
+  z-index:1150;
+}
+.admin-controls .btn{display:none}
+.admin-controls.show .btn{display:inline-block}
+
+/* Catalogo: secciones y grid */
+.catalogo{
+  padding: 18px 6px 80px 6px;
+  max-width:1200px;
+  margin:0 auto;
+}
+.section-title{
+  font-size:22px;
+  margin:18px 6px;
+  color:#222;
+}
+
+/* Grid responsivo: usa Bootstrap columns para compatibilidad, pero añadimos fallback grid */
+.row-grid{display:grid; gap:18px; grid-template-columns: repeat(auto-fill,minmax(220px,1fr));}
+
+/* Card */
+.card-item{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  transition:transform .14s ease, box-shadow .14s ease;
+  min-height:220px;
+}
+.card-item:hover{transform:translateY(-6px)}
+.card-thumb{
+  background:#fafafa;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:132px;
+}
+.card-thumb img{max-width:100%; max-height:110px; object-fit:contain}
+.card-body{padding:12px 14px 8px; flex:1}
+.card-title{font-size:18px;margin:0 0 8px 0; line-height:1.1}
+.card-footer{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-top:1px solid #f0f0f0;background:transparent}
+.price{font-weight:700;color:#222}
+.add-btn{
+  background:var(--green);
+  color:#fff;border:none;
+  width:36px;height:36px;border-radius:8px;
+  display:inline-flex;align-items:center;justify-content:center;
+  cursor:pointer;
+}
+.add-btn[disabled]{opacity:.45;cursor:not-allowed}
+
+/* small badge for unavailable */
+.badge-unavailable{background:#e9ecef;color:#6c757d;padding:4px 8px;border-radius:8px;font-size:12px}
+
+/* Modal overlay con fade */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1300;
+  overflow: auto;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay.open{
+  display:flex;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Caja modal animada */
+.modal-box {
+  width: 100%;
+  max-width: 960px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.25);
+  padding: 16px;
+  position: relative;
+
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+.modal-box.small{max-width:520px}
+.modal-close{
+  position:absolute; right:12px; top:8px; border:none; background:transparent; font-size:20px; cursor:pointer;
+}
+
+/* Modal inner layout */
+.modal-inner{
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+}
+.modal-img-wrap{flex:1; display:flex;align-items:center; justify-content:center; background:#fafafa; border-radius:8px; padding:12px}
+.modal-img-wrap img{max-width:100%; max-height:60vh; object-fit:contain; border-radius:6px}
+.modal-info{flex:1; padding:6px 4px}
+.modal-info h3{margin:0 0 8px; font-size:22px}
+.modal-info .muted{color:var(--muted); margin-bottom:12px}
+.modal-info .precio{font-size:18px; font-weight:700; margin-bottom:12px}
+.cantidad-row{display:flex; gap:12px; align-items:center; margin-bottom:12px}
+.btn-count{width:36px;height:36px;border-radius:8px;border:1px solid #ddd;background:#fff;cursor:pointer}
+.modal-actions{display:flex; gap:10px; align-items:center}
+
+/* Form agregar (admin) */
+.form-agregar{display:flex;flex-direction:column;gap:8px}
+.form-agregar label{display:block;font-size:13px}
+.form-agregar input, .form-agregar textarea{width:100%; padding:8px;border-radius:6px;border:1px solid #ddd}
+.form-actions{display:flex; gap:8px; justify-content:flex-end; margin-top:8px}
+
+/* Responsive adjustments */
+@media (max-width:900px){
+  .modal-inner{flex-direction:column}
+  .modal-img-wrap img{max-height:40vh}
+}
+@media (max-width:640px){
+  .topbar .brand{font-size:16px}
+  .side-menu{width:100%}
+  .admin-controls{right:8px; top:56px}
+}
+
+/* Modal Editar Producto */
+#modal-editar-producto .modal-box {
+  max-width: 600px;
+}
+
+#modal-editar-producto h4 {
+  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+#modal-editar-producto .modal-img-wrap {
+  margin: 0 auto 12px;
+  width: 100%;
+  max-width: 240px;
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#modal-editar-producto .modal-img-wrap img {
+  max-width: 100%;
+  max-height: 160px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+#modal-editar-producto .form-agregar {
+  margin-top: 8px;
+}
+
+#modal-editar-producto .form-actions {
+  margin-top: 14px;
+}
+
+#modal-editar-producto .btn-danger {
+  background: #dc3545;
+  color: #fff;
+}
+
+#modal-editar-producto .btn-danger:hover {
+  background: #c82333;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  #modal-editar-producto .modal-box {
+    max-width: 95%;
+  }
+  #modal-editar-producto .modal-img-wrap {
+    max-width: 180px;
+  }
+}
+
