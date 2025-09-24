@@ -1,0 +1,27 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.card {
+  border-radius: 1rem;
+}
+
+h2, h5 {
+  color: #333;
+}
+
+.bg-light {
+  border: 1px solid #e0e0e0;
+}
+
+.form-check-input {
+  cursor: pointer;
+}
+
+.alert {
+  font-size: 0.9rem;
+}
+
+#vueltoMsg {
+  font-weight: 500;
+}

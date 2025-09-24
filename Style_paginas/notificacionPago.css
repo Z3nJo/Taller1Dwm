@@ -1,0 +1,17 @@
+.card {
+  max-width: 450px;
+  border-radius: 1rem;
+}
+
+h2 {
+  color: #198754;
+}
+
+svg {
+  animation: bounce 1s ease infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-5px); }
+}

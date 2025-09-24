@@ -139,12 +139,26 @@
     }
   }
 
-  // Agregar al carrito (simulación)
+  // Agregar al carrito (integrado con carrito.js)
   function agregarCarrito(id, cantidad = 1) {
     const prod = localizarProducto(id);
     if (!prod) return alert('Producto no encontrado');
     if (!prod.disponible) return alert('Producto no disponible');
-    alert(`Agregado: ${prod.nombre} x${cantidad}`);
+
+    // Objeto de producto como lo espera carrito.js
+    const item = {
+      id: prod.id,
+      nombre: prod.nombre,
+      precio: prod.precio,
+      img: prod.img,
+      cantidad
+    };
+
+    if (window.agregarAlCarrito) {
+      window.agregarAlCarrito(item); // ✅ manda el producto al carrito real
+    } else {
+      console.warn("⚠️ Función agregarAlCarrito no encontrada.");
+    }
   }
 
   // localizar producto por id
@@ -155,6 +169,7 @@
     }
     return null;
   }
+
 
   // Ver detalles -> abre modal
   function verDetalles(id) {
