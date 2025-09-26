@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Imprimir Pedidos</title>
+  <link rel="stylesheet" href="Style_paginas/imprimirPedidos.css">
+</head>
+<body>
+  <header>
+    <h1>📄 Pedidos en Orden de Llegada</h1>
+    <button onclick="window.print()" class="btn-imprimir">🖨️ Imprimir</button>
+  </header>
+
+  <main class="contenedor">
+    <p class="hora-impresion">Hora de impresión: <span id="hora"></span></p>
+
+    <section class="pedido">
+      <h2>Juan Pérez</h2>
+      <p><strong>Hora pedido:</strong> 14:30</p>
+      <p><strong>Productos:</strong> Pizza Familiar, Gaseosa</p>
+      <div class="estado">
+        <label><input type="checkbox"> En preparación</label>
+        <label><input type="checkbox"> Listo</label>
+      </div>
+    </section>
+
+    <section class="pedido">
+      <h2>María López</h2>
+      <p><strong>Hora pedido:</strong> 14:45</p>
+      <p><strong>Productos:</strong> Sushi Box, Té Helado</p>
+      <div class="estado">
+        <label><input type="checkbox"> En preparación</label>
+        <label><input type="checkbox"> Listo</label>
+      </div>
+    </section>
+
+    <section class="pedido">
+      <h2>Carlos Díaz</h2>
+      <p><strong>Hora pedido:</strong> 15:00</p>
+      <p><strong>Productos:</strong> Hamburguesa Doble, Papas Fritas</p>
+      <div class="estado">
+        <label><input type="checkbox"> En preparación</label>
+        <label><input type="checkbox"> Listo</label>
+      </div>
+    </section>
+
+    <!-- ❌ Ejemplo error de impresión -->
+    <!--
+    <div class="error">
+      ⚠️ Error de impresión, compruebe e intentalo de nuevo
+    </div>
+    -->
+  </main>
+
+  <script>
+    // Insertar la hora de impresión actual
+    document.getElementById("hora").textContent = new Date().toLocaleString();
+  </script>
+</body>
+</html>
