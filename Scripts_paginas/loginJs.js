@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (usuario) {
             localStorage.setItem("usuarioActivo", JSON.stringify(usuario));
             intentosFallidos = 0;
-            window.location.href = "sucess.html"; 
+            window.location.href = "inicio.html"; 
         } else {
             intentosFallidos++;
             if (intentosFallidos >= MAX_INTENTOS) {

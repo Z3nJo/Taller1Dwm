@@ -1,0 +1,72 @@
+/* Ajustes de logo */
+.logo {
+  border-radius: 50%;
+}
+
+/* Opciones navbar */
+.navbar .nav-link {
+  font-size: 1.1rem;
+  margin: 0 0.5rem;
+}
+
+.navbar .nav-link:hover {
+  color: #0d6efd;
+  text-decoration: underline;
+}
+
+/* Botón perfil */
+.btn-outline-primary {
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  background: #0d6efd;
+  color: white;
+}
+
+/* Botón hamburguesa fijo */
+#btn-hamburger{
+  position: fixed;
+  top: 90px;
+  left: 20px;
+  z-index: 1200;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#btn-hamburger:hover{ background: rgba(13,110,253,0.85); }
+
+/* Menú lateral categorías */
+.side-menu{
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 260px;
+  height: 100%;
+  background: #1b1b1b;
+  color: #fff;
+  padding: 16px;
+  z-index: 1250;
+  transition: left 0.3s ease;
+  overflow-y: auto;
+}
+.side-menu.show{ left: 0; }
+
+.side-menu .cat{
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 6px;
+}
+.side-menu .cat:hover{ background: rgba(255,255,255,0.1); }
+
+/* Ajuste responsive */
+@media(max-width: 576px){
+  #btn-hamburger{ top: 80px; left: 10px; padding: 6px 10px; }
+  .side-menu{ width: 100%; }
+}

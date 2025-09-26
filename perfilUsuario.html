@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil de Usuario</title>
+</head>
+<body>
+  <!-- Contenedor principal -->
+  <main class="container">
+    <h1>Mi Perfil</h1>
+
+    <!-- Grid de perfil -->
+    <div class="profile-grid">
+      <!-- Columna datos -->
+      <section class="profile-info">
+        <h2>Datos del Usuario</h2>
+        <form id="form-perfil">
+          <div class="form-row">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" required>
+          </div>
+
+          <div class="form-row">
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" name="correo" required>
+          </div>
+
+          <div class="form-row">
+            <label for="telefono">Número telefónico</label>
+            <input type="tel" id="telefono" name="telefono" required>
+          </div>
+
+          <div class="form-row">
+            <label for="direccion">Dirección</label>
+            <input type="text" id="direccion" name="direccion" required>
+          </div>
+
+          <div class="form-row">
+            <label for="password">Confirmar contraseña</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit">Actualizar</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Columna acciones -->
+      <aside class="profile-actions">
+        <h2>Acciones</h2>
+        <button id="btn-cerrar-sesion">Cerrar Sesión</button>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>
