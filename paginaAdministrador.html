@@ -2,8 +2,68 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <!-- Responsivo: viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel de Administración</title>
+  <style>
+    /* Contenedor principal centrado y con padding */
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Contenedor de acciones en grid flexible */
+    .admin-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    /* Tarjetas de acción */
+    .action-card {
+      background-color: #f8f8f8;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+    .action-card:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Botones responsivos */
+    .action-card button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      transition: background-color 0.2s;
+    }
+
+    .action-card button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Responsive para pantallas pequeñas */
+    @media (max-width: 500px) {
+      .admin-container {
+        padding: 10px;
+      }
+
+      .action-card button {
+        font-size: 0.9rem;
+        padding: 8px;
+      }
+    }
+  </style>
 </head>
 <body>
   <main class="admin-container">
