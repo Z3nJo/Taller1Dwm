@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <!-- RESPONSIVE: viewport para que la página se adapte a móviles y tablets -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel de Ventas - Administrador</title>
   <!-- Bootstrap -->
@@ -15,11 +16,14 @@
     <!-- Notificación de posible retraso -->
     <div id="alerta-retraso" class="alert alert-warning text-center" role="alert">
       A veces puede tardar más de lo esperado la actualización de los datos
+      <!-- RESPONSIVE: text-center → centra el texto y se adapta a pantallas pequeñas -->
     </div>
 
     <!-- Tarjetas de resumen -->
     <div class="row g-4 mb-4">
+      <!-- RESPONSIVE: row g-4 → filas con gap, se adaptan al tamaño de pantalla -->
       <div class="col-12 col-md-4">
+        <!-- RESPONSIVE: col-12 → ocupa toda la fila en móviles, col-md-4 → ocupa 1/3 en desktop -->
         <div class="card shadow-sm resumen-card text-center">
           <div class="card-body">
             <h5 class="card-title">Monto Total</h5>
@@ -55,6 +59,7 @@
         Ventas Recientes
       </div>
       <div class="card-body table-responsive">
+        <!-- RESPONSIVE: table-responsive → agrega scroll horizontal en móviles si la tabla es más ancha que la pantalla -->
         <table class="table table-striped table-hover">
           <thead class="table-dark">
             <tr>
@@ -94,6 +99,7 @@
 
     <!-- Botón de ejemplo de actualización manual -->
     <div class="text-center mt-4">
+      <!-- RESPONSIVE: text-center → botón centrado en cualquier tamaño de pantalla -->
       <button class="btn btn-primary btn-lg">Actualizar Datos</button>
     </div>
   </div>
