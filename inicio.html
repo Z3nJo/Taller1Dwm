@@ -2,13 +2,16 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <!-- Sistema responsivo: viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Página de Inicio</title>
+  <!-- Sistema responsivo: Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="Style_paginas/inicio.css">
   <link rel="stylesheet" href="Style_paginas/navbar.css">
 </head>
 <body>
+  <!-- Navbar responsiva de Bootstrap -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
     <div class="container-fluid">
         <!-- Logo + nombre -->
@@ -17,14 +20,14 @@
         Sabor Limeño
         </a>
 
-        <!-- Botón hamburguesa en pantallas pequeñas -->
+        <!-- Botón hamburguesa para pantallas pequeñas -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" 
         aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
 
-       <!-- Menú -->
-      <div class="collapse navbar-collapse" id="navbarMain">
+       <!-- Menú colapsable (responsive) -->
+      <div class="collapse navbar-collapse" id="navbarMain"><!-- ✅ Clases de Bootstrap para responsive spacing y flex -->
         <!-- Opciones al lado del logo -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-3 gap-3">
             <li class="nav-item">
@@ -40,20 +43,20 @@
             </li>
         </ul>
 
-        <!-- Botón perfil a la derecha -->
+        <!-- Botón perfil a la derecha, flex de Bootstrap -->
         <div class="d-flex">
             <a href="perfil.html" class="btn btn-outline-primary">Perfil</a>
         </div>
       </div>
     </div>
   </nav>
-  <!-- Encabezado de bienvenida -->
+  <!-- Encabezado centrado, responsive por clases Bootstrap -->
   <header class="text-center py-5 bg-light shadow-sm">
     <h1 class="display-4 fw-bold">¡Sabor Limeño!</h1>
     <p class="lead text-muted">Platos con sabor a la tradicion del Perú</p>
   </header>
 
-  <!-- Carrusel de platos -->
+  <!-- Carrusel de Bootstrap responsivo -->
   <section id="platos-carousel" class="container my-5">
     <div id="carouselPlatos" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner rounded shadow">
@@ -79,7 +82,7 @@
           </div>
         </div>
       </div>
-      <!-- Controles -->
+      <!-- Controles responsive -->
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselPlatos" data-bs-slide="prev">
         <span class="carousel-control-prev-icon"></span>
       </button>
@@ -88,7 +91,7 @@
       </button>
     </div>
   </section>
-    <!-- Modal Sobre Nosotros -->
+    <!-- Modal de Bootstrap responsivo -->
   <div class="modal fade" id="sobreNosotrosModal" tabindex="-1" aria-labelledby="sobreNosotrosLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -114,11 +117,12 @@
   </div>
 
 
-  <!-- Botón al catálogo -->
+  <!-- Botón centrado responsivo -->
   <section class="text-center my-5">
     <a href="catalogo.html" class="btn btn-lg btn-primary shadow">🍴 Ver Catálogo</a>
   </section>
 
+  <!-- Footer podría adaptarse con CSS propio o clases de Bootstrap -->
   <footer class="site-footer">
     <div class="footer-container">
         <!-- Datos de contacto -->
@@ -144,6 +148,7 @@
     </div>
   </footer>
 
+  <!-- Bootstrap JS (responsivo para navbar, carousel, modal) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
