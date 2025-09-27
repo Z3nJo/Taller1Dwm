@@ -2,18 +2,27 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
+  <!-- RESPONSIVO: asegura que el contenido se adapte al ancho de la pantalla -->
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <title>Catálogo - Responsivo</title>
 
+  <!-- RESPONSIVO: Bootstrap 5 incluye grid y componentes adaptativos -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts: fuente escalable -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS personalizados: aquí pueden ir media queries -->
   <link rel="stylesheet" href="Style_paginas/catalogoStyle.css">
   <link rel="stylesheet" href="Style_paginas/navbar.css">
 </head>
 <body>
 
 <!-- navbar -->
+ <!-- RESPONSIVO: navbar colapsa en móviles -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <!-- RESPONSIVO: contenedor fluido -->
     <div class="container-fluid">
       <!-- Logo + nombre -->
       <a class="navbar-brand fw-bold d-flex align-items-center" href="inicio.html">
@@ -21,20 +30,20 @@
         Sabor Limeño
       </a>
 
-      <!-- Botón hamburguesa solo para los links -->
+      <!-- RESPONSIVO: botón hamburguesa solo en pantallas pequeñas -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" 
         aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <!-- Botones que siempre se ven -->
+      <!-- RESPONSIVO: d-flex + gap permiten distribución fluida -->
       <div class="d-flex gap-2 ms-auto me-3">
         <button id="btn-buscar" class="btn btn-outline-secondary">🔍 Buscar</button>
         <button id="btn-carrito" class="btn btn-outline-success">🛒 Carrito</button>
         <button id="btn-editar" class="btn btn-outline-primary">Editar</button>
       </div>
 
-      <!-- Menú colapsable -->
+      <!-- RESPONSIVO: collapse permite que el menú se oculte en móviles -->
       <div class="collapse navbar-collapse" id="navbarMain">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-3">
           <li class="nav-item">
@@ -53,21 +62,21 @@
     </div>
   </nav>
 
-  <!-- Hamburger debajo del navbar, izquierda -->
+  <!-- RESPONSIVO: menú hamburguesa adicional para móviles -->
   <div class="hamburger-container">
     <button id="hamburger" class="hamburger" aria-label="menu">☰</button>
   </div>
 
-  <!-- Side/Menu (oculto en móvil por defecto) -->
+  <!-- RESPONSIVO: menú lateral oculto por defecto en móvil -->
   <nav id="menu" class="side-menu" aria-hidden="true"></nav>
 
-  <!-- Admin controls (se muestran cuando se activa Edit) -->
+  <!-- RESPONSIVO: controles admin adaptados con Bootstrap btn-sm -->
   <div class="admin-controls" id="admin-controls" aria-hidden="true">
     <button id="btn-abrir-agregar" class="btn btn-primary btn-sm">Agregar producto</button>
     <button id="btn-finalizar" class="btn btn-secondary btn-sm">Finalizar</button>
   </div>
 
-  <!-- Contenedor catálogo -->
+  <!-- RESPONSIVO: container centra y adapta el contenido -->
   <main class="container my-4">
     <div id="catalogo" class="catalogo"></div>
   </main>
@@ -98,7 +107,7 @@
       </div>
     </div>
   </div>
-
+  <!-- RESPONSIVO: modal Bootstrap con tamaños fluidos -->
   <div class="modal fade" id="sobreNosotrosModal" tabindex="-1" aria-labelledby="sobreNosotrosLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -149,7 +158,7 @@
     </div>
   </div>
 
-  <!-- Modal búsqueda -->
+  <!-- RESPONSIVO: inputs y botones con w-100 y mb-2 se adaptan a pantallas pequeñas -->
   <div id="modal-busqueda" class="modal-overlay" aria-hidden="true">
     <div class="modal-box small">
       <button class="modal-close" id="cerrar-modal" aria-label="Cerrar">✖</button>
@@ -197,7 +206,7 @@
   <!-- Botón flotante carrito (opcional) -->
   <button id="btn-carrito" class="btn-carrito" aria-label="carrito">🛒</button>
 
-  <!-- Modal lateral del carrito -->
+  <!-- RESPONSIVO: aside modal-carrito se comporta como panel lateral -->
   <aside id="modal-carrito" class="modal-carrito" aria-hidden="true">
     <div class="modal-header">
       <h4>Tu carrito</h4>
@@ -211,6 +220,7 @@
     </div>
   </aside>
 
+  <!-- RESPONSIVO: footer dividido en columnas -->
   <footer class="site-footer">
     <div class="footer-container">
         <!-- Datos de contacto -->
