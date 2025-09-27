@@ -2,11 +2,121 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <!-- ✅ Responsivo: viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil de Usuario</title>
+  <style>
+    /* Contenedor principal centrado */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    /* Grid de perfil: columnas para escritorio, filas para móviles */
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr; /* Formulario más ancho, acciones más estrechas */
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    /* Secciones */
+    .profile-info, .profile-actions {
+      background-color: #f8f8f8;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Formularios */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-row label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-row input {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .form-actions {
+      text-align: center;
+    }
+
+    .form-actions button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .form-actions button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Botón acciones */
+    .profile-actions button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: none;
+      background-color: #dc3545;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .profile-actions button:hover {
+      background-color: #a71d2a;
+    }
+
+    /* Responsive para pantallas pequeñas */
+    @media (max-width: 768px) {
+      .profile-grid {
+        grid-template-columns: 1fr; /* Formulario y acciones en columna */
+      }
+
+      .profile-actions {
+        margin-top: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 10px;
+      }
+
+      .form-row input, .form-actions button, .profile-actions button {
+        font-size: 0.9rem;
+        padding: 8px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Contenedor principal -->
   <main class="container">
     <h1>Mi Perfil</h1>
 
