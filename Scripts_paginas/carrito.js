@@ -27,6 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
     return carrito.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
   }
 
+  function guardarCarrito() {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  }
+
+  function cargarCarrito() {
+    const data = localStorage.getItem("carrito");
+    if (data) {
+      carrito = JSON.parse(data);
+    }
+  }
+
   function renderCarrito() {
     itemsContainer.innerHTML = "";
 
@@ -63,11 +74,13 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       carrito.push({ ...producto });
     }
+    guardarCarrito(); 
     renderCarrito();
   }
 
   function vaciarCarrito() {
     carrito = [];
+    guardarCarrito(); 
     renderCarrito();
   }
 
@@ -171,6 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
   btnEliminar.addEventListener("click", () => {
     if (!productoActual) return;
     carrito = carrito.filter(p => p.id !== productoActual.id);
+    guardarCarrito();
     renderCarrito();
     modalEditar.classList.remove("open");
     modalEditar.setAttribute("aria-hidden", "true");
@@ -180,6 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
   btnGuardar.addEventListener("click", () => {
     if (!productoActual) return;
     productoActual.cantidad = parseInt(editarCantidad.textContent);
+    guardarCarrito();
     renderCarrito();
     modalEditar.classList.remove("open");
     modalEditar.setAttribute("aria-hidden", "true");
@@ -200,5 +215,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.agregarAlCarrito = agregarAlCarrito;
 
+  cargarCarrito();
   renderCarrito();
 });

@@ -3,6 +3,26 @@ document.addEventListener("DOMContentLoaded", function() {
     const MAX_INTENTOS = 5;
     const BLOQUEO_MINUTOS = 5;
 
+    // --- Sesión e inactividad ---
+    const TIEMPO_INACTIVIDAD = 5 * 60 * 1000; // 5 minutos
+    let timeoutID;
+
+    function resetIdleTimer() {
+        if (timeoutID) clearTimeout(timeoutID);
+        timeoutID = setTimeout(() => {
+            // Cerrar sesión automáticamente al superar inactividad
+            sessionStorage.removeItem("usuarioActivo");
+            alert("Por inactividad, se cerró tu sesión.");
+            window.location.href = "login.html";
+        }, TIEMPO_INACTIVIDAD);
+    }
+
+    // Escuchar actividad del usuario para resetear timer
+    ['mousemove','keydown','scroll','click'].forEach(evt => {
+        document.addEventListener(evt, resetIdleTimer);
+    });
+
+    // --- Función de login ---
     window.logear = function() {
         const nombreInput = document.getElementById("nombre");
         const passwordInput = document.getElementById("psw");
@@ -36,7 +56,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let usuario = usuarios.find(u => u.nombre === nombre && u.password === password);
 
         if (usuario) {
-            localStorage.setItem("usuarioActivo", JSON.stringify(usuario));
+            // Guardar en sessionStorage para sesión temporal (hasta cerrar pestaña)
+            sessionStorage.setItem("usuarioActivo", JSON.stringify(usuario));
+            resetIdleTimer(); // iniciar timer de inactividad
             intentosFallidos = 0;
             window.location.href = "inicio.html"; 
         } else {
@@ -54,5 +76,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (modal) new bootstrap.Modal(modal).show();
             }
         }
+    }
+
+    // --- Función para cerrar sesión manual ---
+    window.cerrarSesion = function() {
+        sessionStorage.removeItem("usuarioActivo");
+        window.location.href = "login.html";
     }
 });

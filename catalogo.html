@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="Style_paginas/catalogoStyle.css">
   <link rel="stylesheet" href="Style_paginas/navbar.css">
 </head>
+
 <body>
 
  <!-- RESPONSIVO: navbar colapsa en móviles -->
@@ -25,7 +26,7 @@
     <div class="container-fluid">
       <!-- Logo + nombre -->
       <a class="navbar-brand fw-bold d-flex align-items-center" href="inicio.html">
-        <img src="logo.png" alt="Logo" width="40" height="40" class="me-2">
+        <img src="Media/Sabor.png" alt="Logo" width="75" height="75" class="me-2">
         Sabor Limeño
       </a>
 
@@ -249,5 +250,21 @@
   <script src="Scripts_paginas/carrito.js"></script>
   <script src="Scripts_paginas/catalogo.js"></script>
   <script src="Scripts_paginas/catalogoAdmin.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const pedidoFinalizado = localStorage.getItem("pedidoFinalizado");
+      if (pedidoFinalizado === "true") {
+        // Limpiar carrito y productos de sesión
+        localStorage.removeItem("carrito");
+        sessionStorage.removeItem("productosCompra");
+        
+        // Quitar la bandera para no recargar infinitamente
+        localStorage.removeItem("pedidoFinalizado");
+        
+        // Recargar la página para reflejar carrito vacío
+        location.reload();
+      }
+    });
+  </script>
 </body>
 </html> 

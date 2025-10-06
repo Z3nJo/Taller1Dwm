@@ -61,3 +61,16 @@ h2 {
 .btn-lg {
   min-width: 140px;
 }
+
+.sticky-buttons {
+  position: fixed; /* Siempre visible */
+  bottom: 10px;    /* 10px del borde inferior */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  padding: 10px 20px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}

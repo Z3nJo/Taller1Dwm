@@ -18,7 +18,7 @@ body {
 /* Encabezado */
 header {
   background: #0d6efd;
-  color: white;
+  color: rgb(96, 96, 96);
   padding: 1rem;
   text-align: center;
 }

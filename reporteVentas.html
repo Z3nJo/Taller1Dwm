@@ -2,10 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <!-- RESPONSIVE: viewport para que la página se adapte a móviles y tablets -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel de Ventas - Administrador</title>
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="Style_paginas/reporteVentas.css">
 </head>
@@ -16,18 +14,15 @@
     <!-- Notificación de posible retraso -->
     <div id="alerta-retraso" class="alert alert-warning text-center" role="alert">
       A veces puede tardar más de lo esperado la actualización de los datos
-      <!-- RESPONSIVE: text-center → centra el texto y se adapta a pantallas pequeñas -->
     </div>
 
     <!-- Tarjetas de resumen -->
     <div class="row g-4 mb-4">
-      <!-- RESPONSIVE: row g-4 → filas con gap, se adaptan al tamaño de pantalla -->
       <div class="col-12 col-md-4">
-        <!-- RESPONSIVE: col-12 → ocupa toda la fila en móviles, col-md-4 → ocupa 1/3 en desktop -->
         <div class="card shadow-sm resumen-card text-center">
           <div class="card-body">
             <h5 class="card-title">Monto Total</h5>
-            <p class="card-text fs-3">$24.500</p>
+            <p id="monto-total" class="card-text fs-3">$0</p>
           </div>
         </div>
       </div>
@@ -35,7 +30,7 @@
         <div class="card shadow-sm resumen-card text-center">
           <div class="card-body">
             <h5 class="card-title">Número de Pedidos</h5>
-            <p class="card-text fs-3">15</p>
+            <p id="num-pedidos" class="card-text fs-3">0</p>
           </div>
         </div>
       </div>
@@ -43,11 +38,7 @@
         <div class="card shadow-sm resumen-card text-center">
           <div class="card-body">
             <h5 class="card-title">Métodos de Pago</h5>
-            <ul class="list-unstyled mb-0">
-              <li>Tarjeta: 8</li>
-              <li>Efectivo: 5</li>
-              <li>Transferencia: 2</li>
-            </ul>
+            <ul id="metodos-pago" class="list-unstyled mb-0"></ul>
           </div>
         </div>
       </div>
@@ -59,7 +50,6 @@
         Ventas Recientes
       </div>
       <div class="card-body table-responsive">
-        <!-- RESPONSIVE: table-responsive → agrega scroll horizontal en móviles si la tabla es más ancha que la pantalla -->
         <table class="table table-striped table-hover">
           <thead class="table-dark">
             <tr>
@@ -70,47 +60,73 @@
               <th>Método de Pago</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>12345</td>
-              <td>Juan Pérez</td>
-              <td>24/09/2025 14:30</td>
-              <td>$12.000</td>
-              <td>Tarjeta</td>
-            </tr>
-            <tr>
-              <td>12346</td>
-              <td>María López</td>
-              <td>24/09/2025 15:05</td>
-              <td>$6.000</td>
-              <td>Efectivo</td>
-            </tr>
-            <tr>
-              <td>12347</td>
-              <td>Carlos Gómez</td>
-              <td>24/09/2025 15:20</td>
-              <td>$6.500</td>
-              <td>Transferencia</td>
-            </tr>
+          <tbody id="tabla-ventas">
+            <!-- Filas generadas dinámicamente -->
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- Botón de ejemplo de actualización manual -->
+    <!-- Botón de actualización manual -->
     <div class="text-center mt-4">
-      <!-- RESPONSIVE: text-center → botón centrado en cualquier tamaño de pantalla -->
-      <button class="btn btn-primary btn-lg">Actualizar Datos</button>
+      <button class="btn btn-primary btn-lg" onclick="actualizarReporte()">Actualizar Datos</button>
     </div>
   </div>
 
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- EJEMPLO: datos de prueba, se puede reemplazar por actualización en tiempo real -->
   <script>
-    // Aquí se podría agregar lógica de WebSocket o fetch periódicamente para actualizar los datos
-    // Por ejemplo: cada 5 segundos actualizar monto total, pedidos y métodos de pago
+    function actualizarReporte() {
+      const historialUsuarios = JSON.parse(localStorage.getItem("historialUsuarios")) || {};
+      const tbodyVentas = document.getElementById("tabla-ventas");
+
+      // Reiniciar contadores
+      let montoTotal = 0;
+      let numeroPedidos = 0;
+      const metodosPago = {};
+
+      tbodyVentas.innerHTML = ""; // Limpiar tabla antes de renderizar
+
+      Object.keys(historialUsuarios).forEach(usuario => {
+        const pedidos = historialUsuarios[usuario];
+
+        pedidos.forEach(pedido => {
+          // Sumar total y contar método de pago
+          const totalPedido = Number(pedido.total) || 0;
+          montoTotal += totalPedido;
+          numeroPedidos++;
+
+          const metodo = pedido.metodoPago || "N/A";
+          if (!metodosPago[metodo]) metodosPago[metodo] = 0;
+          metodosPago[metodo]++;
+
+          // Insertar fila en la tabla
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${pedido.id}</td>
+            <td>${usuario}</td>
+            <td>${pedido.fecha} ${pedido.hora || ""}</td>
+            <td>$${totalPedido.toLocaleString("es-CL")}</td>
+            <td>${metodo}</td>
+          `;
+          tbodyVentas.appendChild(tr);
+        });
+      });
+
+      // Actualizar tarjetas de resumen
+      document.getElementById("monto-total").textContent = `$${montoTotal.toLocaleString("es-CL")}`;
+      document.getElementById("num-pedidos").textContent = numeroPedidos;
+
+      const ulMetodos = document.getElementById("metodos-pago");
+      ulMetodos.innerHTML = "";
+      Object.keys(metodosPago).forEach(metodo => {
+        const li = document.createElement("li");
+        li.textContent = `${metodo}: ${metodosPago[metodo]}`;
+        ulMetodos.appendChild(li);
+      });
+    }
+
+    // Ejecutar la primera carga al abrir la página
+    actualizarReporte();
   </script>
 </body>
 </html>

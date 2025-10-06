@@ -6,11 +6,32 @@
   // Datos iniciales (puedes reemplazar / cargar desde servidor)
   const productos = {
     "Entradas": [
-      { id: "causa-camaron", nombre: "Causa de Camarón", precio: 14850, img: "media/plato.png", descripcion: "Masa de papa amarilla con camarones y aliños.", disponible: true },
-      { id: "ensalada-mixta", nombre: "Ensalada Mixta", precio: 9500, img: "media/plato.png", descripcion: "Mezcla fresca de vegetales de estación.", disponible: true }
+      { id: "causa-limena", nombre: "Causa Limeña", precio: 8500, img: "media/CausaLimeña.jpg", descripcion: "Puré de papa amarilla relleno de pollo, atún o mariscos, decorado con huevo y palta.", disponible: true },
+      { id: "ceviche", nombre: "Ceviche", precio: 9000, img: "media/ceviche.png", descripcion: "Pescado fresco marinado en limón con ají, cebolla morada, cilantro, choclo y camote.", disponible: true },
+      { id: "anticucho", nombre: "Anticucho", precio: 7000, img: "media/anticucho.jpg", descripcion: "Brochetas de corazón de res sazonadas con ají panca, acompañadas de papa y salsa especial.", disponible: true },
+      { id: "tiradito", nombre: "Tiradito", precio: 9500, img: "media/tiradito.jpg", descripcion: "Finas láminas de pescado fresco con limón, ají amarillo, aceite de oliva y cilantro.", disponible: true },
+      { id: "choclo", nombre: "Choclo con queso", precio: 5500, img: "media/choclo.png", descripcion: "Maíz peruano cocido acompañado de queso fresco, clásico y delicioso.", disponible: true }
     ],
     "Platos de fondo": [
-      { id: "lomo-saltado", nombre: "Lomo Saltado", precio: 18900, img: "media/plato.png", descripcion: "Carne salteada con cebolla y papas.", disponible: false }
+      { id: "lomo-saltado", nombre: "Lomo Saltado", precio: 12000, img: "media/lomo-saltado.jpeg", descripcion: "Trozos de carne de res salteados con cebolla, tomate, ají amarillo y salsa de soja, acompañado de arroz y papas fritas.", disponible: false },
+      { id: "aji-gallina", nombre: "Ají de gallina", precio: 11000, img: "media/Aji-gallina.jpg", descripcion: "Suave guiso de pollo deshilachado en salsa de ají amarillo, nueces y pan, servido con arroz blanco y huevo duro.", disponible: true },
+      { id: "arroz-marisco", nombre: "Arroz con marisco", precio: 13000, img: "media/arroz-marisco.jpg", descripcion: "Arroz sazonado con ají amarillo y cilantro, mezclado con mariscos frescos y servido con limón.", disponible: true },
+      { id: "seco-cordero", nombre: "Seco de cordero", precio: 14000, img: "media/seco-cordero.jpg", descripcion: "Cordero estofado en salsa de cilantro y cerveza negra, acompañado de arroz y frejoles.", disponible: true },
+      { id: "pachamanca", nombre: "Pachamanca", precio: 13500, img: "media/pachamanca.jpg", descripcion: "Carne, papas, choclo y habas cocidas al estilo tradicional andino con hierbas y piedras calientes.", disponible: true }
+    ],
+    "Postres": [
+      { id: "sundae", nombre: "Helado sundae", precio: 4000, img: "media/sundae.png", descripcion: "Bolas de helado de vainilla o chocolate con salsa, crema batida y trozos de chocolate o frutos secos.", disponible: true },
+      { id: "panna", nombre: "Panna cotta de vainilla", precio: 4800, img: "media/panna.jpg", descripcion: "Postre cremoso a base de crema y gelatina, acompañado de coulis de frutas rojas.", disponible: true },
+      { id: "tiramisu", nombre: "Tiramisú", precio: 5500, img: "media/tiramisu.png", descripcion: "Capas de bizcocho empapadas en café y licor, con crema de mascarpone y cacao espolvoreado.", disponible: true },
+      { id: "brownie", nombre: "Brownie con helado", precio: 4500, img: "media/brownie.jpg", descripcion: "Brownie de chocolate caliente acompañado de una bola de helado de vainilla y salsa de chocolate.", disponible: true },
+      { id: "cheesecake", nombre: "Cheesecake de fresa", precio: 5000, img: "media/cheesecake.jpg", descripcion: "Suave tarta de queso con base de galleta, cubierta con salsa de fresa fresca.", disponible: true }
+    ],
+    "Bebidas": [
+      { id: "coca-cola", nombre: "Coca-Cola", precio: 2000, img: "media/cocacola.png", descripcion: "Gaseosa clásica de cola, refrescante y burbujeante.", disponible: true },
+      { id: "inca-kola", nombre: "Inca Kola", precio: 2000, img: "media/incakola.jpg", descripcion: "Refresco peruano de sabor dulce y único, muy popular en Perú.", disponible: true },
+      { id: "jugo-maracuya", nombre: "Jugo de maracuyá", precio: 2500, img: "media/jugodemaracuya.jpg", descripcion: "Bebida natural de fruta fresca, ligeramente ácido y refrescante.", disponible: true },
+      { id: "jugo-naranja", nombre: "Jugo de naranja", precio: 2500, img: "media/jugodenaranja.jpg", descripcion: "Zumo recién exprimido de naranjas maduras, dulce y lleno de vitaminas.", disponible: true },
+      { id: "gingerale", nombre: "Ginger Ale", precio: 2200, img: "media/ginger.png", descripcion: "Refresco de jengibre, burbujeante y con ligero toque picante, ideal para acompañar comidas.", disponible: true }
     ]
   };
 
@@ -108,7 +129,7 @@
 
         actions.appendChild(btnAdd);
 
-        // If edit mode, append edit/delete icons
+        // If modo edicion, append edit/delete icons
         if (editMode) {
           const btnEdit = document.createElement('button'); btnEdit.className = 'btn-edit small';
           btnEdit.style.marginLeft = '8px'; btnEdit.textContent = '✏️';

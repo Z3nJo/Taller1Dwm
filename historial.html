@@ -2,166 +2,205 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <!-- RESPONSIVE: viewport para que la página se adapte a móviles y tablets -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Historial de Pedidos</title>
+  <link rel="stylesheet" href="Style_paginas/paleta.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="Style_paginas/navbar.css">
   <link rel="stylesheet" href="Style_paginas/historial.css">
+  <style>
+
+  </style>
 </head>
+
 <body>
+
+    <!-- Navbar responsiva de Bootstrap -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container-fluid">
+        <!-- Logo + nombre -->
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="inicio.html">
+        <img src="Media/Sabor.png" alt="Logo" width="75" height="75" class="me-2">
+        Sabor Limeño
+        </a>
+
+        <!-- Botón hamburguesa para pantallas pequeñas -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" 
+        aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+
+       <!-- Menú colapsable (responsive) -->
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <!-- Opciones al lado del logo -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-3 gap-3">
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="inicio.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="catalogo.html">Catálogo</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#sobreNosotrosModal">
+                Sobre Nosotros
+            </a>
+            </li>
+        </ul>
+
+        <!-- Botones a la derecha -->
+        <div id="navbar-botones-derecha" class="d-flex gap-2">
+            <a href="perfilUsuario.html" class="btn btn-outline-primary">Perfil</a>
+            <!-- Aquí se agregará dinámicamente el botón de administrador si aplica -->
+        </div>
+      </div>
+    </div>
+  </nav>
+
   <div class="container my-5">
     <h2 class="text-center mb-4">Historial de Pedidos</h2>
 
-    <!-- Contenedor de notificaciones -->
-    <div id="notificaciones" class="position-fixed top-0 start-50 translate-middle-x mt-3 zindex-tooltip" style="width: 90%; max-width: 500px; display: none;">
-    <!-- RESPONSIVE: position-fixed + translate-middle-x → centra notificación horizontal y se adapta a pantallas -->
-    <!-- RESPONSIVE: width: 90%; max-width: 500px → ancho adaptable a móvil y desktop -->
-      <!-- 
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        Tu pedido ha sido cancelado
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      -->
-      <!-- 
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        Hubo un error al anular el pedido, reintente o llame al local
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      -->
-    </div>
-  
-    <!-- Lista de pedidos -->
+    <div id="notificaciones" class="position-fixed top-0 start-50 translate-middle-x mt-3 zindex-tooltip"
+      style="width: 90%; max-width: 500px; display: none;"></div>
+
     <div id="historial-pedidos">
-      <!-- Pedido entregado -->
-      <div class="card mb-3 shadow-sm pedido" data-pedido-id="12345">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <!-- RESPONSIVE: d-flex justify-content-between align-items-center → distribuye contenido horizontal y se adapta verticalmente -->
-          <span><strong>Pedido #12345</strong></span>
-          <span class="badge bg-success">Entregado</span>
-        </div>
-        <div class="card-body">
-          <p><strong>Fecha:</strong> 24/09/2025</p>
-          <ul class="list-group mb-2">
-            <li class="list-group-item d-flex justify-content-between">
-              <!-- RESPONSIVE: d-flex justify-content-between → texto y precio se separan horizontalmente y se adaptan -->
-              Causa de Camarón (x2) <span>$12.000</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between">
-              Ensalada Mixta (x1) <span>$6.000</span>
-            </li>
-          </ul>
-          <p class="text-end"><strong>Total:</strong> $18.000</p>
-          <div class="text-end mt-2">
-            <button class="btn btn-danger btn-cancelar" style="display: none;">Cancelar Pedido</button>
-            <!-- RESPONSIVE: botón se ubica a la derecha y puede reacomodarse en pantalla pequeña -->
-          </div>
-        </div>
-      </div>
-
-      <!-- Pedido pendiente -->
-      <div class="card mb-3 shadow-sm pedido" data-pedido-id="12346">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <span><strong>Pedido #12346</strong></span>
-          <span class="badge bg-warning text-dark">Pendiente</span>
-        </div>
-        <div class="card-body">
-          <p><strong>Fecha:</strong> 22/09/2025</p>
-          <ul class="list-group mb-2">
-            <li class="list-group-item d-flex justify-content-between">
-              Pizza Napolitana (x1) <span>$8.000</span>
-            </li>
-          </ul>
-          <p class="text-end"><strong>Total:</strong> $8.000</p>
-          <div class="text-end mt-2">
-            <button class="btn btn-danger btn-cancelar" style="display: inline-block;">Cancelar Pedido</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Botones generales -->
-    <div class="text-center mt-4 d-flex justify-content-center gap-3 flex-wrap">
-      <!-- RESPONSIVE: d-flex justify-content-center flex-wrap gap-3 → botones centrados, se acomodan en varias líneas en móviles -->
-      <a href="catalogo.html" class="btn btn-secondary btn-lg">Volver al Catálogo</a>
-      <button id="repetir-pedido" class="btn btn-success btn-lg" disabled>Repetir Pedido</button>
+      <!-- Aquí se cargan los pedidos dinámicamente -->
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Sticky buttons -->
+  <div class="sticky-buttons">
+    <a href="catalogo.html" class="btn btn-secondary btn-lg">Volver al Catálogo</a>
+    <button id="repetir-pedido" class="btn btn-success btn-lg" disabled>Repetir Pedido</button>
+  </div>
 
-    <!-- Script para seleccionar pedido y cancelar -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    const pedidos = document.querySelectorAll('.pedido');
-    const btnRepetir = document.getElementById('repetir-pedido');
+    // ---------------- Funciones utilitarias ----------------
+    function parsePriceToNumber(v) {
+      if (typeof v === "number") return v;
+      if (!v) return 0;
+      const n = String(v).replace(/[^0-9\-]/g, "");
+      return n === "" ? 0 : parseInt(n, 10);
+    }
+
+    function normalizeProduct(p) {
+      return {
+        nombre: p.nombre || p.nombreProducto || "Sin nombre",
+        precioUnitario: parsePriceToNumber(p.precioUnitario ?? p.precio),
+        cantidad: Number(p.cantidad || 1)
+      };
+    }
+
+    function buildActiveOrderFromPedido(pedido, cliente) {
+      const productos = (pedido.productos || []).map(normalizeProduct);
+      const total = pedido.total ?? productos.reduce((s, x) => s + x.precioUnitario * x.cantidad, 0);
+      return {
+        id: pedido.id || `PED${Date.now()}`,
+        productos,
+        total: Number(total),
+        fecha: pedido.fecha || new Date().toLocaleDateString("es-CL"),
+        hora: pedido.hora || new Date().toLocaleTimeString("es-CL"),
+        metodoPago: pedido.metodoPago || pedido.metodo || "N/A",
+        cliente: cliente || null
+      };
+    }
+    // -------------------------------------------------------
+
+    const usuarioActivo = JSON.parse(sessionStorage.getItem("usuarioActivo")) || { nombre: "Invitado" };
+    const historialUsuarios = JSON.parse(localStorage.getItem("historialUsuarios")) || {};
+    const pedidosUsuario = historialUsuarios[usuarioActivo.nombre] || [];
+
+    const historialContainer = document.getElementById("historial-pedidos");
+    const btnRepetir = document.getElementById("repetir-pedido");
     let pedidoSeleccionado = null;
 
-    pedidos.forEach(pedido => {
-      const estadoBadge = pedido.querySelector('.card-header .badge').textContent.trim();
-      const btnCancelar = pedido.querySelector('.btn-cancelar');
-
-      // Mostrar botón solo si el pedido está pendiente
-      if (estadoBadge.toLowerCase() === 'pendiente') {
-        btnCancelar.style.display = 'inline-block';
+    function renderizarPedidos() {
+      historialContainer.innerHTML = "";
+      if (pedidosUsuario.length === 0) {
+        historialContainer.innerHTML = "<p class='text-center'>No tienes pedidos aún.</p>";
+        return;
       }
 
-      // Selección del pedido
-      pedido.addEventListener('click', () => {
-        if (pedidoSeleccionado) {
-          pedidoSeleccionado.classList.remove('pedido-seleccionado');
-        }
-        pedido.classList.add('pedido-seleccionado');
-        pedidoSeleccionado = pedido;
-        btnRepetir.disabled = false;
+      pedidosUsuario.forEach((pedido) => {
+        const card = document.createElement("div");
+        card.className = "card mb-3 shadow-sm pedido";
+        card.dataset.pedidoId = pedido.id;
+
+        const estado = pedido.entregado ? "Entregado" : "Pendiente";
+        const badgeClass = pedido.entregado ? "bg-success" : "bg-warning text-dark";
+
+        let productosHTML = "";
+        (pedido.productos || []).forEach((p) => {
+          const cantidadTexto = p.cantidad > 1 ? `(x${p.cantidad})` : "";
+          const subtotal = parsePriceToNumber(p.precioUnitario ?? p.precio) * (p.cantidad || 1);
+          productosHTML += `<li class="list-group-item d-flex justify-content-between">
+                              ${p.nombre} ${cantidadTexto} 
+                              <span>$${subtotal.toLocaleString("es-CL")}</span>
+                            </li>`;
+        });
+
+        card.innerHTML = `
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span><strong>Pedido #${pedido.id}</strong></span>
+            <span class="badge ${badgeClass}">${estado}</span>
+          </div>
+          <div class="card-body">
+            <p><strong>Fecha:</strong> ${pedido.fecha} ${pedido.hora || ""}</p>
+            <ul class="list-group mb-2">
+              ${productosHTML}
+            </ul>
+            <p class="text-end"><strong>Total:</strong> $${parsePriceToNumber(pedido.total).toLocaleString("es-CL")}</p>
+            <div class="text-end mt-2">
+              <button class="btn btn-danger btn-cancelar" style="${estado === "Pendiente" ? "display:inline-block" : "display:none"};">Cancelar Pedido</button>
+            </div>
+          </div>
+        `;
+        historialContainer.appendChild(card);
       });
 
-      // Cancelar pedido
-      btnCancelar.addEventListener('click', (e) => {
-        e.stopPropagation(); // 
-        if (confirm('¿Deseas cancelar este pedido?')) {
-          pedido.remove();
-          alert('Pedido cancelado correctamente');
-          if (pedidoSeleccionado === pedido) {
-            pedidoSeleccionado = null;
-            btnRepetir.disabled = true;
+      const pedidosDOM = document.querySelectorAll(".pedido");
+      pedidosDOM.forEach((pedido) => {
+        const btnCancelar = pedido.querySelector(".btn-cancelar");
+
+        pedido.addEventListener("click", () => {
+          if (pedidoSeleccionado) pedidoSeleccionado.classList.remove("pedido-seleccionado");
+          pedido.classList.add("pedido-seleccionado");
+          pedidoSeleccionado = pedido;
+          btnRepetir.disabled = false;
+        });
+
+        btnCancelar.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (confirm("¿Deseas cancelar este pedido?")) {
+            const pedidoId = pedido.dataset.pedidoId;
+            const index = pedidosUsuario.findIndex((p) => p.id === pedidoId);
+            if (index !== -1) {
+              pedidosUsuario[index].entregado = false;
+              localStorage.setItem("historialUsuarios", JSON.stringify(historialUsuarios));
+              renderizarPedidos();
+            }
+            if (pedidoSeleccionado === pedido) {
+              pedidoSeleccionado = null;
+              btnRepetir.disabled = true;
+            }
           }
-        }
+        });
       });
-    });
+    }
 
-    // Repetir pedido
-    btnRepetir.addEventListener('click', () => {
-      if (pedidoSeleccionado) {
-        const id = pedidoSeleccionado.dataset.pedidoId;
+    renderizarPedidos();
+
+    btnRepetir.addEventListener("click", () => {
+      if (!pedidoSeleccionado) return;
+      const id = pedidoSeleccionado.dataset.pedidoId;
+      const pedido = pedidosUsuario.find((p) => p.id === id);
+
+      if (pedido) {
+        const activeOrder = buildActiveOrderFromPedido(pedido, usuarioActivo);
+        sessionStorage.setItem("activeOrder", JSON.stringify(activeOrder));
         window.location.href = "resumen.html";
       }
     });
-  </script>
-
-  <script>
-    /*
-    // Simulación de notificación de éxito
-    const notificaciones = document.getElementById('notificaciones');
-    const alertaExito = document.createElement('div');
-    alertaExito.className = 'alert alert-success alert-dismissible fade show';
-    alertaExito.role = 'alert';
-    alertaExito.innerHTML = `
-      Tu pedido ha sido cancelado
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    `;
-    notificaciones.appendChild(alertaExito);
-    notificaciones.style.display = 'block';
-
-    // Simulación de notificación de error
-    const alertaError = document.createElement('div');
-    alertaError.className = 'alert alert-danger alert-dismissible fade show';
-    alertaError.role = 'alert';
-    alertaError.innerHTML = `
-      Hubo un error al anular el pedido, reintente o llame al local
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    `;
-    // Para probar, comentar/descomentar:
-    // notificaciones.appendChild(alertaError);
-    */
   </script>
 </body>
 </html>

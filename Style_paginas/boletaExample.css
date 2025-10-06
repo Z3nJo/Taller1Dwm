@@ -1,3 +1,7 @@
+body {
+  background-color: #F99151;
+}
+
 .boleta {
   max-width: 600px;
   width: 100%;
@@ -6,7 +10,7 @@
 
 h2 {
   font-weight: bold;
-  color: #198754;
+  color: #F99151;
 }
 
 .table th, .table td {

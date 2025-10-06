@@ -2,45 +2,227 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <!-- Sistema responsivo: viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pedidos Pendientes - Despacho</title>
+
+  <!-- Bootstrap (responsivo) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Tu CSS personalizado -->
+   <link rel="stylesheet" href="paleta.css">
   <link rel="stylesheet" href="Style_paginas/pedidosPendientes.css">
 </head>
 <body>
-  <header>
-    <h1>📦 Pedidos Pendientes</h1>
+  <header class="bg-light border-bottom">
+    <div class="container d-flex align-items-center justify-content-between py-3">
+      <h1 class="h4 mb-0">📦 Pedidos Pendientes</h1>
+      <div>
+        <button id="btn-imprimir-todos" class="btn btn-primary me-2">Ir a Imprimir Pedidos</button>
+      </div>
+    </div>
   </header>
 
-  <main class="contenedor">
-    <!-- ✅ Ejemplo con pedidos -->
-    <ul class="lista-pedidos">
-      <li class="pedido">
-        <h2>Juan Pérez</h2>
-        <p><strong>Dirección:</strong> Av. Siempre Viva 123</p>
-        <p><strong>Hora:</strong> 14:30</p>
-        <p><strong>Productos:</strong> Pizza Familiar, Gaseosa</p>
-      </li>
-      <li class="pedido">
-        <h2>María López</h2>
-        <p><strong>Dirección:</strong> Calle Luna 456</p>
-        <p><strong>Hora:</strong> 14:45</p>
-        <p><strong>Productos:</strong> Sushi Box, Té Helado</p>
-      </li>
-      <li class="pedido">
-        <h2>Carlos Díaz</h2>
-        <p><strong>Dirección:</strong> Pasaje Estrella 789</p>
-        <p><strong>Hora:</strong> 15:00</p>
-        <p><strong>Productos:</strong> Hamburguesa Doble, Papas Fritas</p>
-      </li>
-    </ul>
-
-    <!-- ❌ Ejemplo cuando no hay pedidos -->
-    <!--
-    <div class="sin-pedidos">
-      <p>🚫 ¡Sin pedidos pendientes!</p>
+  <main class="container my-4">
+    <div id="resumen" class="mb-3">
+      <span id="contador-pedidos" class="badge bg-info fs-6">Cargando...</span>
     </div>
-    -->
+
+    <div id="lista-contenedor" class="row gy-3">
+      <!-- tarjetas de pedidos se inyectan aquí -->
+    </div>
+
+    <div id="sin-pedidos" class="text-center mt-5 d-none">
+      <div class="alert alert-secondary">
+        <h5 class="mb-1">🚫 ¡Sin pedidos pendientes!</h5>
+        <p class="mb-0">Actualmente no hay pedidos en estado "Pendiente".</p>
+      </div>
+    </div>
   </main>
+
+  <footer class="text-center py-4">
+    <small class="text-muted">Panel de despacho • Sabor Limeño</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (function () {
+      const listaContenedor = document.getElementById('lista-contenedor');
+      const sinPedidosEl = document.getElementById('sin-pedidos');
+      const contadorEl = document.getElementById('contador-pedidos');
+      const btnImprimirTodos = document.getElementById('btn-imprimir-todos');
+
+      // lee historialUsuarios (objeto con claves por usuario -> array pedidos)
+      const historialUsuarios = JSON.parse(localStorage.getItem('historialUsuarios')) || {};
+
+      // recolecta todos los pedidos con estado "pendiente"
+      const pendientes = [];
+
+      Object.keys(historialUsuarios).forEach(usuarioKey => {
+        const pedidos = Array.isArray(historialUsuarios[usuarioKey]) ? historialUsuarios[usuarioKey] : [];
+        pedidos.forEach(pedido => {
+          const estado = (pedido.estado || '').toString().toLowerCase();
+          if (estado === 'pendiente') {
+            // Enriquecer pedido con datos de usuario si no vienen en el pedido
+            const clienteFromPedido = pedido.usuario && pedido.usuario.nombre ? pedido.usuario.nombre
+                                      : pedido.cliente ? pedido.cliente
+                                      : usuarioKey || 'Invitado';
+            const direccionFromPedido = (pedido.usuario && pedido.usuario.direccion) || pedido.direccion || '';
+            const telefonoFromPedido = (pedido.usuario && pedido.usuario.telefono) || pedido.telefono || '';
+            // asegurar estructura productos
+            const productos = Array.isArray(pedido.productos) ? pedido.productos : [];
+
+            pendientes.push(Object.assign({}, pedido, {
+              __usuarioKey: usuarioKey,
+              clienteNombre: clienteFromPedido,
+              clienteDireccion: direccionFromPedido,
+              clienteTelefono: telefonoFromPedido,
+              productos: productos
+            }));
+          }
+        });
+      });
+
+      // mostrar contador
+      contadorEl.textContent = `${pendientes.length} pedido(s) pendientes`;
+
+      if (pendientes.length === 0) {
+        sinPedidosEl.classList.remove('d-none');
+        listaContenedor.innerHTML = '';
+        return;
+      } else {
+        sinPedidosEl.classList.add('d-none');
+      }
+
+      // helper: formatear precio
+      function formatoPesos(n) {
+        const num = Number(n) || 0;
+        return '$' + num.toLocaleString('es-CL');
+      }
+
+      // helper: extraer hora del pedido (pedido.hora o pedido.fecha que contenga hora)
+      function obtenerHoraPedido(pedido) {
+        if (pedido.hora) return pedido.hora;
+        if (pedido.fecha && typeof pedido.fecha === 'string') {
+          // si fecha tiene "dd/mm/yyyy hh:mm:ss" o "dd-mm-yyyy hh:mm"
+          const partes = pedido.fecha.split(' ');
+          if (partes.length > 1) return partes.slice(1).join(' ');
+        }
+        return '';
+      }
+
+      // construir tarjetas
+      listaContenedor.innerHTML = '';
+      pendientes.forEach((p, index) => {
+        const col = document.createElement('div');
+        col.className = 'col-12';
+
+        const card = document.createElement('div');
+        card.className = 'card shadow-sm';
+
+        const cardBody = document.createElement('div');
+        cardBody.className = 'card-body';
+
+        // encabezado: cliente + botones
+        const headerRow = document.createElement('div');
+        headerRow.className = 'd-flex justify-content-between align-items-start';
+
+        const clienteInfo = document.createElement('div');
+        clienteInfo.innerHTML = `<h5 class="card-title mb-1">${escapeHtml(p.clienteNombre)}</h5>
+          <p class="mb-1"><strong>Dirección:</strong> ${escapeHtml(p.clienteDireccion || 'No registrada')}</p>
+          <p class="mb-0 text-muted">${escapeHtml(obtenerHoraPedido(p))}</p>`;
+
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'd-flex gap-2';
+
+        // botón imprimir este pedido
+        const btnImprimir = document.createElement('button');
+        btnImprimir.className = 'btn btn-outline-primary btn-sm';
+        btnImprimir.textContent = 'Imprimir este pedido';
+        btnImprimir.addEventListener('click', () => {
+          // guardar pedido en sessionStorage para la página de impresión
+          try {
+            sessionStorage.setItem('pedidoParaImprimir', JSON.stringify(p));
+          } catch (e) { console.warn('No se pudo guardar en sessionStorage', e); }
+          window.location.href = 'imprimirPedidos.html';
+        });
+
+        // botón ver detalles (expande)
+        const btnDetalles = document.createElement('button');
+        btnDetalles.className = 'btn btn-outline-secondary btn-sm';
+        btnDetalles.textContent = 'Ver detalles';
+        btnDetalles.addEventListener('click', () => {
+          detallesDiv.classList.toggle('d-none');
+        });
+
+        actionsDiv.appendChild(btnImprimir);
+        actionsDiv.appendChild(btnDetalles);
+
+        headerRow.appendChild(clienteInfo);
+        headerRow.appendChild(actionsDiv);
+
+        // Lista de productos
+        const detallesDiv = document.createElement('div');
+        detallesDiv.className = 'mt-3';
+
+        if (Array.isArray(p.productos) && p.productos.length > 0) {
+          const ul = document.createElement('ul');
+          ul.className = 'list-group list-group-flush';
+          let sumaTotal = 0;
+          p.productos.forEach(prod => {
+            const cant = Number(prod.cantidad || 1);
+            const precioUnitario = Number(prod.precioUnitario ?? prod.precio ?? 0);
+            const subtotal = cant * precioUnitario;
+            sumaTotal += subtotal;
+            const li = document.createElement('li');
+            li.className = 'list-group-item d-flex justify-content-between align-items-center px-0';
+            li.innerHTML = `<div>${escapeHtml(prod.nombre || 'Sin nombre')} ${cant > 1 ? `<small class="text-muted"> (x${cant})</small>` : ''}</div>
+                            <div class="text-end"><small class="d-block">${formatoPesos(precioUnitario)}</small><strong>${formatoPesos(subtotal)}</strong></div>`;
+            ul.appendChild(li);
+          });
+          detallesDiv.appendChild(ul);
+
+          // total del pedido (usar pedido.total si existe, sino suma calculada)
+          const totalReal = Number(p.total) || sumaTotal;
+          const totalDiv = document.createElement('div');
+          totalDiv.className = 'mt-2 text-end';
+          totalDiv.innerHTML = `<strong>Total: ${formatoPesos(totalReal)}</strong>`;
+          detallesDiv.appendChild(totalDiv);
+        } else {
+          detallesDiv.innerHTML = '<p class="text-muted mb-0">No hay productos registrados en este pedido.</p>';
+        }
+
+        // ocultar detalles por defecto
+        detallesDiv.classList.add('mt-3');
+
+        // por defecto mostramos detalles (si quieres que estén ocultos, descomenta)
+        // detallesDiv.classList.add('d-none');
+
+        cardBody.appendChild(headerRow);
+        cardBody.appendChild(detallesDiv);
+        card.appendChild(cardBody);
+        col.appendChild(card);
+        listaContenedor.appendChild(col);
+      });
+
+      // boton imprimir todos -> guarda array en sessionStorage y redirige
+      btnImprimirTodos.addEventListener('click', () => {
+        try {
+          sessionStorage.setItem('pedidosParaImprimir', JSON.stringify(pendientes));
+        } catch (e) { console.warn('No se pudo guardar en sessionStorage', e); }
+        window.location.href = 'imprimirPedidos.html';
+      });
+
+      // escape básico para evitar inyección si acaso
+      function escapeHtml(str) {
+        if (!str && str !== 0) return '';
+        return String(str)
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#39;');
+      }
+    })();
+  </script>
 </body>
 </html>

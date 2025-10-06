@@ -7,27 +7,32 @@
 
 /* Header de bienvenida */
 header {
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  background: linear-gradient(135deg, var(--secondary2-1), var(--secondary2-3));
+  padding: 2rem;
 }
 
 header h1 {
-  color: #0d6efd;
+  color: var(--primary-2);
 }
 
 header p {
   font-size: 1.2rem;
+  color: var(--neutral-dark);
 }
 
 /* Carrusel */
 #platos-carousel img {
   object-fit: cover;
   height: 500px;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .carousel-caption {
   background: rgba(0, 0, 0, 0.5);
   border-radius: 0.5rem;
   padding: 1rem;
+  color: #fff;
 }
 
 /* Botón */
@@ -35,32 +40,20 @@ header p {
   padding: 0.8rem 2rem;
   font-size: 1.2rem;
   border-radius: 0.5rem;
+  background-color: var(--primary-2);
+  border-color: var(--primary-2);
+  color: #fff;
+  transition: background 0.3s, border 0.3s;
 }
 
-/* Footer */
-footer {
-  font-size: 0.9rem;
-  color: #6c757d;
-}
-
-/* Responsive ajustes */
-@media (max-width: 768px) {
-  #platos-carousel img {
-    height: 300px;
-  }
-
-  header h1 {
-    font-size: 2rem;
-  }
-
-  header p {
-    font-size: 1rem;
-  }
+.btn-primary:hover {
+  background-color: var(--primary-3);
+  border-color: var(--primary-3);
 }
 
 /* Footer */
 .site-footer {
-  background: #212121;
+  background: #C0520E;
   color: #fff;
   padding: 24px 16px;
   margin-top: 40px;
@@ -80,7 +73,7 @@ footer {
 .footer-social h4 {
   margin-bottom: 10px;
   font-size: 16px;
-  color: var(--accent);
+  color: #fff; /* Blanco puro, como pediste */
 }
 
 .footer-contact a,
@@ -120,4 +113,3 @@ footer {
     justify-content: center;
   }
 }
-
