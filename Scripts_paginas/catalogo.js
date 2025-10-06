@@ -6,7 +6,7 @@
   // Datos iniciales (puedes reemplazar / cargar desde servidor)
   const productos = {
     "Entradas": [
-      { id: "causa-limena", nombre: "Causa Limeña", precio: 8500, img: "media/CausaLimeña.jpg", descripcion: "Puré de papa amarilla relleno de pollo, atún o mariscos, decorado con huevo y palta.", disponible: true },
+      { id: "causa-limena", nombre: "Causa Limeña", precio: 8500, img: "Media/CausaLimeña.jpg", descripcion: "Puré de papa amarilla relleno de pollo, atún o mariscos, decorado con huevo y palta.", disponible: true },
       { id: "ceviche", nombre: "Ceviche", precio: 9000, img: "media/ceviche.png", descripcion: "Pescado fresco marinado en limón con ají, cebolla morada, cilantro, choclo y camote.", disponible: true },
       { id: "anticucho", nombre: "Anticucho", precio: 7000, img: "media/anticucho.jpg", descripcion: "Brochetas de corazón de res sazonadas con ají panca, acompañadas de papa y salsa especial.", disponible: true },
       { id: "tiradito", nombre: "Tiradito", precio: 9500, img: "media/tiradito.jpg", descripcion: "Finas láminas de pescado fresco con limón, ají amarillo, aceite de oliva y cilantro.", disponible: true },
